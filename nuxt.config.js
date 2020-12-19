@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  target: 'server',
+  ssr: false,
+  telemetry: false,
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s - glisten-dashboard',
@@ -17,7 +21,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: ['./plugins/glisten.client.js'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -36,7 +40,17 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/apollo',
   ],
+
+  apollo: {
+    clientConfigs: {
+      whispr: {
+        httpEndpoint: 'http://localhost:3000/graphql',
+        wsEndpoint: 'ws://localhost:3000/graphql',
+      },
+    },
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
